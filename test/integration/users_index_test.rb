@@ -3,17 +3,10 @@ require 'test_helper'
 class UsersIndexTest < ActionDispatch::IntegrationTest
 
   def setup
-    @user = users(:michael)
+    @admin     = users(:michael)
     @non_admin = users(:archer)
   end
-  
-  # テストユーザーとしてログインする
-  def log_in_as(user, password: 'password', remember_me: '1')
-    post login_path, params: { session: { email: user.email,
-                                          password: password,
-                                          remember_me: remember_me } }
-  end
-  
+
   test "index as admin including pagination and delete links" do
     log_in_as(@admin)
     get users_path
